@@ -1,7 +1,6 @@
 package com.example.tictactoe
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -92,12 +91,10 @@ class MainActivity : AppCompatActivity() {
                 player1Score++
                 player1ScoreTextView.text = player1Score.toString()
                 Toast.makeText(this, "$player1Name wins!", Toast.LENGTH_SHORT).show()
-
             } else {
                 player2Score++
                 player2ScoreTextView.text = player2Score.toString()
                 Toast.makeText(this, "$player2Name wins!", Toast.LENGTH_SHORT).show()
-
             }
         } else if (board.all { it != null }) {
             gameActive = false
@@ -200,7 +197,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun restartGame(view: View) {
+    fun restartGame() {
         for (i in buttons.indices) {
             buttons[i].text = ""
             buttons[i].setBackgroundColor(ContextCompat.getColor(this, R.color.teal))
@@ -211,6 +208,7 @@ class MainActivity : AppCompatActivity() {
         gameActive = true
         updatePlayerTurn()
     }
+
     private fun updatePlayerTurn() {
         if (currentPlayer == "X") {
             playerTurnTextView.text = "$player1Name's turn"
@@ -218,7 +216,6 @@ class MainActivity : AppCompatActivity() {
             playerTurnTextView.text = "$player2Name's turn"
         }
     }
-
 
     private fun checkWinner(): IntArray? {
         val winningPositions = arrayOf(
@@ -236,7 +233,6 @@ class MainActivity : AppCompatActivity() {
         }
         return null
     }
-
 
     private fun toTitleCase(text: String): String {
         return text.split(" ").joinToString(" ") { word ->

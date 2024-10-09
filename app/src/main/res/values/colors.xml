@@ -7,4 +7,15 @@
     <color name="yellow">#FFB300</color>
     <color name="dark_background">#232A36</color>
     <color name="grid_line">#37474F</color>
+
+    <color name="my_light_primary">#26C6DA</color>
+    <color name="my_light_on_primary">#FFFFFF</color>
+    <color name="my_light_secondary">#FFB300</color>
+    <color name="my_light_on_secondary">#050505</color>
+
+    <color name="my_dark_primary">#37474F</color>
+    <color name="my_dark_on_primary">#FFFFFF</color>
+
+    <color name="surface_dynamic">#121212</color>
+    <color name="dark_surface_overlay">#37474F</color>
 </resources>

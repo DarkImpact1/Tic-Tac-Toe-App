@@ -39,14 +39,12 @@ class PlayerInputActivity : AppCompatActivity() {
                     player2NameEditText.visibility = EditText.VISIBLE
                     player2NameEditText.hint = getString(R.string.player_2_name)
                     startGameButton.visibility = Button.VISIBLE
-
                 }
                 R.id.radio_vs_computer -> {
                     player1NameEditText.visibility = EditText.VISIBLE
                     player2NameEditText.visibility = EditText.GONE
-                    player2NameEditText.setText("CPU")
+                    player2NameEditText.setText("CPU") // Set default name for CPU
                     startGameButton.visibility = Button.VISIBLE
-
                 }
             }
         }
@@ -76,18 +74,10 @@ class PlayerInputActivity : AppCompatActivity() {
             }
 
             // Proceed based on selected game mode
-            if (radioVsComputer.isChecked) {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("PLAYER_1_NAME", player1Name)
-                intent.putExtra("PLAYER_2_NAME", "Computer")
-                startActivity(intent)
-            } else {
-                // For vs friend mode
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("PLAYER_1_NAME", player1Name)
-                intent.putExtra("PLAYER_2_NAME", player2Name)
-                startActivity(intent)
-            }
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("PLAYER_1_NAME", player1Name)
+            intent.putExtra("PLAYER_2_NAME", if (radioVsComputer.isChecked) "Computer" else player2Name)
+            startActivity(intent)
         }
 
         // Set click listener for LinkedIn ImageView
