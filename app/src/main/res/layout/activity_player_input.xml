@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_background"
+    android:background="@color/black"
     tools:context=".PlayerInputActivity">
 
 
@@ -80,7 +80,7 @@
         android:layout_width="224dp"
         android:layout_height="65dp"
         android:layout_marginBottom="77dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/teal"
         android:text="@string/start_button"
         android:textColor="@color/white"
         android:textSize="25sp"

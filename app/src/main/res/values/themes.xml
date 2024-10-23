@@ -11,19 +11,13 @@
         <!-- Text appearance -->
         <item name="android:textColor">@color/textcolor</item>
 
-        <!-- Button Style -->
-        <item name="buttonStyle">@style/MyCustomButton</item>
 
         <!-- Elevation overlay for Material Design -->
         <item name="elevationOverlayEnabled">true</item>
         <item name="elevationOverlayColor">@color/dark_surface_overlay</item>
     </style>
 
-    <!-- Custom Button Style -->
-    <style name="MyCustomButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:background">@drawable/button_background</item>
-        <item name="android:textColor">@color/black</item> <!-- Customize text color -->
-    </style>
+
 
     <!-- Inherit the base theme for your app -->
     <style name="Theme.TicTacToe" parent="Base.Theme.TicTacToe" />
