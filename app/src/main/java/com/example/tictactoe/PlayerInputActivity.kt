@@ -23,8 +23,9 @@ class PlayerInputActivity : AppCompatActivity() {
 
         // ImageViews for social media icons
         val linkedInImageView = findViewById<ImageView>(R.id.linkedin)
-        val instagramImageView = findViewById<ImageView>(R.id.instagram)
         val twitterImageView = findViewById<ImageView>(R.id.twitter)
+        val helpIcon =findViewById<ImageView>(R.id.help_icon)
+
 
         // Hide second player's name initially (for vs computer mode)
         player1NameEditText.visibility = EditText.GONE
@@ -86,16 +87,19 @@ class PlayerInputActivity : AppCompatActivity() {
             openUrl(linkedInUrl)
         }
 
-        // Set click listener for Instagram ImageView
-        instagramImageView.setOnClickListener {
-            val instagramUrl = "https://www.instagram.com/dmohit13/"
-            openUrl(instagramUrl)
-        }
 
         // Set click listener for Twitter ImageView
         twitterImageView.setOnClickListener {
             val twitterUrl = "https://twitter.com/dmohit013"
             openUrl(twitterUrl)
+        }
+
+        helpIcon.setOnClickListener{
+            val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:helpassistant.tictactoegame@gmail.com")
+                putExtra(Intent.EXTRA_SUBJECT, "Help with Tic-Tac-Toe Game")
+            }
+            startActivity(emailIntent)
         }
     }
 

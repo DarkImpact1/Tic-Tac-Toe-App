@@ -1,8 +1,11 @@
 package com.example.tictactoe
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -67,6 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         updatePlayerTurn()
         initializeBoard()
+
     }
 
     private fun initializeBoard() {
@@ -197,7 +201,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun restartGame() {
+    fun restartGame(view: View) {
         for (i in buttons.indices) {
             buttons[i].text = ""
             buttons[i].setBackgroundColor(ContextCompat.getColor(this, R.color.teal))
