@@ -1,0 +1,25 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+<!-- Base application theme with Day/Night support -->
+<style name="Base.Theme.TicTacToe" parent="Theme.Material3.DayNight.NoActionBar">
+
+    <!-- Light theme customizations -->
+    <item name="colorPrimary">@color/my_light_primary</item>
+    <item name="colorOnPrimary">@color/my_light_on_primary</item>
+    <item name="colorSecondary">@color/my_light_secondary</item>
+    <item name="colorOnSecondary">@color/my_light_on_secondary</item>
+
+    <!-- Text appearance -->
+    <item name="android:textColor">@color/textcolor</item>
+
+
+    <!-- Elevation overlay for Material Design -->
+    <item name="elevationOverlayEnabled">true</item>
+    <item name="elevationOverlayColor">@color/dark_surface_overlay</item>
+
+</style>
+
+
+
+<!-- Inherit the base theme for your app -->
+<style name="Theme.TicTacToe" parent="Base.Theme.TicTacToe" />
+</resources>

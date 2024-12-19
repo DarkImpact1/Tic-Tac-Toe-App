@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".PlayerInputActivity">
+
+    <!-- App Name TextView -->
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/my_light_primary"
+        android:textSize="40sp" />
+
+    <!-- RadioGroup for Game Mode -->
+    <RadioGroup
+        android:id="@+id/game_mode_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView9"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_vs_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/play_with_friend"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/radio_vs_computer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/play_with_computer"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RadioGroup>
+
+    <!-- LinearLayout for Player Names -->
+    <LinearLayout
+        android:id="@+id/player_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/game_mode_group"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="70dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/player1_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/player_1_name"
+            android:inputType="text"
+            android:textColor="@color/player1"
+            android:textColorHint="@color/gray"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/player2_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/player_2_name"
+            android:inputType="text"
+            android:textColor="@color/yellow"
+            android:textColorHint="@color/gray"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- Start Button -->
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="224dp"
+        android:layout_height="65dp"
+        android:layout_below="@id/player_name_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/teal"
+        android:text="@string/start_button"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <!-- Footer Layout -->
+    <LinearLayout
+        android:id="@+id/footer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginBottom="48dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/help"
+            android:textColor="@color/my_light_on_primary"
+            android:textSize="20sp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/help_icon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/help_icon" />
+    </LinearLayout>
+
+</RelativeLayout>
