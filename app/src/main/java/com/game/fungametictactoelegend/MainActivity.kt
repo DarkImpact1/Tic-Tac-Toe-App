@@ -2,7 +2,11 @@ package com.game.fungametictactoelegend
 
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.RadioButton
@@ -124,6 +128,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // initialize board and make move
     private fun initializeBoard() {
         for (i in buttons.indices) {
             buttons[i].setOnClickListener {
@@ -131,14 +136,17 @@ class MainActivity : AppCompatActivity() {
                     if(isLevelSelected){
                         if (gameActive && board[i].isNullOrEmpty()) {
                             makeMove(buttons[i], i)
+                            playClickSound(this) // to play the click sound after making moves
                         }
                     }else{
+//                        showCustomToast(this,"Please select a difficulty level")
                         Toast.makeText(this, "Please select a difficulty level", Toast.LENGTH_SHORT).show()
                     }
 
                 }else{
                     if (gameActive && board[i].isNullOrEmpty()) {
                         makeMove(buttons[i], i)
+                        playClickSound((this))// To play the click sound after making moves
                     }
                 }
 
@@ -146,6 +154,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // To make move when it turn
     @SuppressLint("SetTextI18n")
     private fun makeMove(button: Button, position: Int) {
         button.text = currentPlayer
@@ -159,11 +168,13 @@ class MainActivity : AppCompatActivity() {
             if (currentPlayer == "X") {
                 player1Score++
                 player1ScoreTextView.text = player1Score.toString()
-                Toast.makeText(this, "$player1Name wins!", Toast.LENGTH_SHORT).show()
+                showCustomToast(this,"Congratulation","$player1Name is the Winner!")
+//                Toast.makeText(this, "$player1Name wins!", Toast.LENGTH_SHORT).show()
             } else {
                 player2Score++
                 player2ScoreTextView.text = player2Score.toString()
-                Toast.makeText(this, "$player2Name wins!", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "$player2Name wins!", Toast.LENGTH_SHORT).show()
+                showCustomToast(this,"Congratulation","$player2Name is the Winner!")
             }
         }
         // when match is draw
@@ -171,7 +182,7 @@ class MainActivity : AppCompatActivity() {
             gameActive = false
             tiesScore++
             tiesScoreTextView.text = tiesScore.toString()
-            Toast.makeText(this, "It's a draw!", Toast.LENGTH_SHORT).show()
+            showCustomToast(this,"Draw","Choose your move wisely")
         }
         // when game is continue
         else {
@@ -197,6 +208,7 @@ class MainActivity : AppCompatActivity() {
                         "Hard" -> findBestMove(board)
                         else -> findBestMove(board)
                     }
+//                    Toast.makeText(this, "comp click", Toast.LENGTH_SHORT).show()
                     buttons[bestMove].performClick() // Simulate button click for computer's move
                     enableButtons()
                 }, 500)
@@ -205,11 +217,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // CPU move for easy level difficulty
     private fun findRandomMove(): Int {
         val emptyPositions = board.indices.filter { board[it].isNullOrEmpty() }
         return emptyPositions.random()
     }
 
+    // CPU move for medium level difficulty
     private fun findMediumMove(): Int {
         // Check if AI can win in one move
         for (i in board.indices) {
@@ -239,18 +253,19 @@ class MainActivity : AppCompatActivity() {
         return findRandomMove()
     }
 
-
+    // To disable the button while CPU is making it's move
     private fun disableButtons() {
         buttons.forEach { it.isEnabled = false }
     }
 
+    // To enable the button after CPU makes it move
     private fun enableButtons() {
         buttons.forEachIndexed { index, button ->
             if (board[index].isNullOrEmpty()) button.isEnabled = true
         }
     }
 
-
+    // To find the best move for min max algo from the remaining card of board
     private fun findBestMove(board: Array<String?>): Int {
         var bestVal = -1000
         var bestMove = -1
@@ -270,6 +285,7 @@ class MainActivity : AppCompatActivity() {
         return bestMove
     }
 
+    // min max algorithm for CPU to play at its best level
     private fun minimax(board: Array<String?>, depth: Int, isMax: Boolean): Int {
         val score = evaluateBoard()
         // If computer has won
@@ -304,6 +320,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // before CPU makes it's move, to Evaluate the board and make it's move accordingly
     private fun evaluateBoard(): Int {
         val winningPositions = arrayOf(
             intArrayOf(0, 1, 2), intArrayOf(3, 4, 5), intArrayOf(6, 7, 8),
@@ -326,12 +343,14 @@ class MainActivity : AppCompatActivity() {
         return 0 // No winner
     }
 
+    // To highlight winning button after won
     private fun highlightWinningButtons(winningPositions: IntArray) {
         for (position in winningPositions) {
             buttons[position].setBackgroundColor(ContextCompat.getColor(this, R.color.white))
         }
     }
 
+    // To restart the game
     fun restartGame(view: View) {
         for (i in buttons.indices) {
             buttons[i].text = ""
@@ -339,31 +358,35 @@ class MainActivity : AppCompatActivity() {
             board[i] = null
         }
         currentPlayer = if (currentPlayer == "X") "O" else "X"
-
+//        Toast.makeText(this, "after currentPlayer", Toast.LENGTH_SHORT).show()
         gameActive = true
+//        Toast.makeText(this, "after gameActive", Toast.LENGTH_SHORT).show()
         updatePlayerTurn()
+//        Toast.makeText(this, "after updatePlayerTurn", Toast.LENGTH_SHORT).show()
         enableButtons()
+//        Toast.makeText(this, "after enabledButton", Toast.LENGTH_SHORT).show()
 
         if (!isVsComputer) {
             difficultySelector.visibility = RadioGroup.GONE
+        }else{
+            cpuClickAfterRestart()
         }
-        else {
-        levelEasy.isChecked = false
-        levelMedium.isChecked = false
-        levelHard.isChecked = false
-        difficultySelector.visibility = RadioGroup.VISIBLE
-            isLevelSelected = false
-            Toast.makeText(this, "selection prev", Toast.LENGTH_SHORT).show()
-        }
-
-//        cpuClickAfterRestart()
-
+        // If you want user to select the level after restart
+//        else {
+//        levelEasy.isChecked = false
+//        levelMedium.isChecked = false
+//        levelHard.isChecked = false
+//        difficultySelector.visibility = RadioGroup.VISIBLE
+//            isLevelSelected = false
+//        }
 
     }
 
+    // Make CPU click after restart when it's turn
     private fun cpuClickAfterRestart(){
         if (isVsComputer && currentPlayer == "O") {
             disableButtons()
+//            Toast.makeText(this, "cpuClARestart", Toast.LENGTH_SHORT).show()
             buttons[findBestMove(board)].postDelayed({
                 buttons[findBestMove(board)].performClick()
                 enableButtons()
@@ -383,6 +406,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // To check if we found any winner or not
     private fun checkWinner(): IntArray? {
         val winningPositions = arrayOf(
             intArrayOf(0, 1, 2), intArrayOf(3, 4, 5), intArrayOf(6, 7, 8),
@@ -400,9 +424,41 @@ class MainActivity : AppCompatActivity() {
         return null
     }
 
+    // To convert string into title case to display user's name
     private fun toTitleCase(text: String): String {
         return text.split(" ").joinToString(" ") { word ->
             word.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
         }
     }
+
+    // To display custom toast message
+    fun showCustomToast(context: Context,center:String, winner: String) {
+        // Inflate the custom toast layout
+        val inflater = LayoutInflater.from(context)
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+
+        // Set the text messages
+        val winnerMessage: TextView = layout.findViewById(R.id.toast_message)
+        val subMessage: TextView = layout.findViewById(R.id.toast_sub_message)
+
+        winnerMessage.text = center
+        subMessage.text = winner
+
+        // Create and show the toast
+        val toast = Toast(context)
+        toast.duration = Toast.LENGTH_SHORT
+        toast.view = layout
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
+
+    private fun playClickSound(context: Context) {
+        val mediaPlayer = MediaPlayer.create(context, R.raw.click_sound)
+        mediaPlayer.start()
+        mediaPlayer.setOnCompletionListener {
+            it.release() // Release the media player once the sound is completed
+        }
+    }
+
 }

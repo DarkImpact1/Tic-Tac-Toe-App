@@ -1,6 +1,8 @@
 package com.game.fungametictactoelegend
 
+import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.widget.*
@@ -49,6 +51,7 @@ class PlayerInputActivity : AppCompatActivity() {
 
         // Start game button listener
         startGameButton.setOnClickListener {
+            playClickSound(this)
             val player1Name = player1NameEditText.text.toString()
             val player2Name = player2NameEditText.text.toString()
             val selectedGameModeId = gameModeGroup.checkedRadioButtonId
@@ -86,6 +89,14 @@ class PlayerInputActivity : AppCompatActivity() {
                 putExtra(Intent.EXTRA_SUBJECT, "Help with Tic-Tac-Toe Game")
             }
             startActivity(emailIntent)
+        }
+    }
+
+    private fun playClickSound(context: Context) {
+        val mediaPlayer = MediaPlayer.create(context, R.raw.click_sound)
+        mediaPlayer.start()
+        mediaPlayer.setOnCompletionListener {
+            it.release() // Release the media player once the sound is completed
         }
     }
 

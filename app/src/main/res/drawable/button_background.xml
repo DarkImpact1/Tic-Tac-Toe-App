@@ -2,21 +2,29 @@
     <!-- Normal State -->
     <item android:state_pressed="false">
         <layer-list>
+            <!-- Outer Glow Effect -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#8000FF00" /> <!-- Dark neon green glow -->
+                    <corners android:radius="16dp" />
+                </shape>
+            </item>
             <!-- Shadow Layer -->
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="#CCCCCC" /> <!-- Light shadow color -->
-                    <corners android:radius="12dp" />
+                    <solid android:color="#1F1F1F" /> <!-- Dark shadow background -->
+                    <corners android:radius="16dp" />
                 </shape>
             </item>
             <!-- Main Button Layer -->
-            <item android:top="4dp" android:left="4dp">
+            <item android:top="6dp" android:left="6dp">
                 <shape android:shape="rectangle">
                     <gradient
-                        android:startColor="#3F51B5"
-                        android:endColor="#5C6BC0"
-                        android:angle="270" />
-                    <corners android:radius="12dp" />
+                        android:startColor="#00FF00"
+                    android:endColor="#006400"
+                    android:angle="270" />
+                    <corners android:radius="16dp" />
+                    <stroke android:width="3dp" android:color="#00FF00" /> <!-- Neon green border -->
                 </shape>
             </item>
         </layer-list>
@@ -25,21 +33,29 @@
     <!-- Pressed State -->
     <item android:state_pressed="true">
         <layer-list>
+            <!-- Outer Glow Effect -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#8000FFFF" /> <!-- Dark neon blue glow -->
+                    <corners android:radius="16dp" />
+                </shape>
+            </item>
             <!-- Shadow Layer -->
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="#AAAAAA" /> <!-- Darker shadow for pressed effect -->
-                    <corners android:radius="12dp" />
+                    <solid android:color="#2B2B2B" /> <!-- Slightly lighter shadow -->
+                    <corners android:radius="16dp" />
                 </shape>
             </item>
             <!-- Main Button Layer -->
-            <item android:top="2dp" android:left="2dp">
+            <item android:top="3dp" android:left="3dp">
                 <shape android:shape="rectangle">
                     <gradient
-                        android:startColor="#5C6BC0"
-                        android:endColor="#3F51B5"
-                        android:angle="270" />
-                    <corners android:radius="12dp" />
+                        android:startColor="#00BFFF"
+                    android:endColor="#0047AB"
+                    android:angle="270" />
+                    <corners android:radius="16dp" />
+                    <stroke android:width="3dp" android:color="#00BFFF" /> <!-- Neon blue border -->
                 </shape>
             </item>
         </layer-list>
