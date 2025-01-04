@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -344,11 +346,53 @@ class MainActivity : AppCompatActivity() {
     }
 
     // To highlight winning button after won
+//    private fun highlightWinningButtons(winningPositions: IntArray) {
+//        for (position in winningPositions) {
+//            buttons[position].setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+//        }
+//    }
+
+    // Highlight winning buttons with animation stopping after two blinks
     private fun highlightWinningButtons(winningPositions: IntArray) {
         for (position in winningPositions) {
-            buttons[position].setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+            // Define the animation for winning buttons
+            val scaleUpAnimation = ScaleAnimation(
+                1.0f, 1.2f, // From 100% to 120% scale in X direction
+                1.0f, 1.2f, // From 100% to 120% scale in Y direction
+                Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point X
+                Animation.RELATIVE_TO_SELF, 0.5f  // Pivot point Y
+            ).apply {
+                duration = 500 // Duration of one scale up/down cycle
+                repeatMode = Animation.REVERSE // Reverses scale back down
+                repeatCount = 2 // Two blinks: 1 scale up and 1 scale down
+
+                // Listener to clear animation after two blinks
+                setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation?) {
+                        // No action needed on animation start
+                    }
+
+                    override fun onAnimationEnd(animation: Animation?) {
+                        // Reset the button's background to its original state
+                        buttons[position].clearAnimation()
+                        buttons[position].setBackgroundResource(R.drawable.button_background)
+                    }
+
+                    override fun onAnimationRepeat(animation: Animation?) {
+                        // No action needed on repeat
+                    }
+                })
+            }
+
+            // Set the winning background
+            buttons[position].setBackgroundResource(R.drawable.winning_button_background)
+
+            // Apply the animation
+            buttons[position].startAnimation(scaleUpAnimation)
         }
     }
+
+
 
     // To restart the game
     fun restartGame(view: View) {
